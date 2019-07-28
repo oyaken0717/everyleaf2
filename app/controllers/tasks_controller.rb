@@ -2,7 +2,8 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.all.order(created_at: :desc)
+    # @tasks = Task.all
   end
 
   def new
@@ -12,7 +13,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to new_task_path, notice: "ブログを作成しました！"
+      redirect_to tasks_path, notice: "ブログを作成しました！"
     else
       render "new"
     end 
